@@ -12,7 +12,7 @@ const createGroupSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   effectiveDate: z.string().min(1, 'Start date is required'),
   reviewDate: z.string().min(1, 'End date is required'),
-  commitmentFundAmount: z.coerce.number().min(0, 'Must be at least 0'),
+  commitmentFundAmount: z.number().min(0, 'Must be at least 0'),
 })
 
 const joinGroupSchema = z.object({
@@ -169,7 +169,7 @@ export default function SetupPage() {
                 <label className="text-sm font-semibold text-gray-700 pl-1">Commitment Fund ($)</label>
                 <input
                   type="number"
-                  {...createForm.register('commitmentFundAmount')}
+                  {...createForm.register('commitmentFundAmount', { valueAsNumber: true })}
                   className="w-full px-4 py-3.5 rounded-2xl bg-gray-50/50 border border-gray-200 focus:border-gray-400 focus:ring-1 focus:ring-gray-400 outline-none text-sm text-gray-900"
                   placeholder="1000"
                 />
