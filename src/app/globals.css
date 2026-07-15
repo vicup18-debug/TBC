@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #CCFF00; /* Neon Lime from reference */
+  --color-brand-dark: #b3e600;
+  --color-background: #f5f7fa; 
+  --color-foreground: #111827; 
+  --color-card: #ffffff;
+  --color-card-foreground: #111827;
+  --color-muted: #f3f4f6;
+  --color-muted-foreground: #6b7280;
+  --color-destructive: #ef4444;
+  --color-success: #10b981;
+}
+
+@utility glass {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.05);
+}
+
+:root {
+  --background: #f5f7fa;
+  --foreground: #111827;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), sans-serif;
+}
+
+/* Animations */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility animate-in {
+  animation: fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

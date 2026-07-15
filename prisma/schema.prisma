@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite" // Can be changed to "postgresql" for prod
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                    String                 @id @default(uuid())
+  email                 String                 @unique
+  passwordHash          String?                // Nullable if magic-link is used later
+  name                  String
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+
+  memberships           Membership[]
+  pillarLogs            PillarLog[]
+  breaches              Breach[]
+  financialDeclarations FinancialDeclaration[]
+}
+
+model CovenantGroup {
+  id                   String       @id @default(uuid())
+  name                 String
+  effectiveDate        DateTime
+  reviewDate           DateTime
+  commitmentFundAmount Float
+  status               String       @default("ACTIVE") // ACTIVE, COMPLETED
+  timezone             String       @default("Africa/Lagos")
+  inviteCode           String       @unique @default(uuid())
+  createdAt            DateTime     @default(now())
+  updatedAt            DateTime     @updatedAt
+
+  memberships          Membership[]
+  breaches             Breach[]
+}
+
+model Membership {
+  id           String        @id @default(uuid())
+  userId       String
+  groupId      String
+  role         String        @default("MEMBER") // MEMBER, ACCOUNTABILITY_HOLDER
+  stakeBalance Float         // Starts at commitmentFundAmount
+  joinedAt     DateTime      @default(now())
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  group        CovenantGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, groupId])
+}
+
+model PillarLog {
+  id        String   @id @default(uuid())
+  userId    String
+  pillar    String   // MIND, SPIRIT, BODY, WEALTH
+  completed Boolean
+  note      String?
+  date      DateTime // Represents the local date in the group's timezone (stored as UTC midnight)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, pillar, date])
+}
+
+model Breach {
+  id        String        @id @default(uuid())
+  userId    String
+  groupId   String
+  type      String        // MINOR, MAJOR, DISHONESTY
+  amount    Float
+  date      DateTime
+  note      String?       // Visible only to Accountability Holder and breaching member
+  createdAt DateTime      @default(now())
+
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  group     CovenantGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+}
+
+model FinancialDeclaration {
+  id                    String   @id @default(uuid())
+  userId                String
+  date                  DateTime
+  netWorth              Float?
+  cumulativeGrowth      Float?
+  evidenceNote          String?
+  onTrackForMillionaire Boolean  @default(false)
+  createdAt             DateTime @default(now())
+
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
