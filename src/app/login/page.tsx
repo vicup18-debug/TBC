@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { LogIn, ArrowRight, Loader2 } from 'lucide-react'
 
 const loginSchema = z.object({
@@ -58,8 +59,8 @@ export default function LoginPage() {
       <div className="w-full max-w-md bg-white rounded-[2rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 relative overflow-hidden">
         
         <div className="flex flex-col items-center mb-8">
-          <div className="h-14 w-14 rounded-full bg-brand flex items-center justify-center mb-5 shadow-sm">
-            <LogIn className="w-7 h-7 text-black translate-x-0.5" />
+          <div className="h-16 w-16 mb-5 flex items-center justify-center relative">
+            <Image src="/logo.png" alt="Obi Agu Logo" fill className="object-contain" priority />
           </div>
           <h1 className="text-3xl font-bold tracking-tight text-gray-900">Welcome Back</h1>
           <p className="text-sm text-gray-500 mt-2 text-center font-medium">
