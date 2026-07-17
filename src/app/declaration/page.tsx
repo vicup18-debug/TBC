@@ -82,13 +82,13 @@ export default async function DeclarationPage() {
                     <div className="text-left sm:text-right">
                       <span className="text-xs font-semibold text-gray-400 uppercase block mb-0.5">Net Worth</span>
                       <span className="font-black text-gray-900 text-xl">
-                        {dec.netWorth !== null ? `$${dec.netWorth.toLocaleString()}` : 'N/A'}
+                        {dec.netWorth !== null ? `₦${dec.netWorth.toLocaleString()}` : 'N/A'}
                       </span>
                     </div>
                     <div className="text-left sm:text-right">
                       <span className="text-xs font-semibold text-gray-400 uppercase block mb-0.5">Growth</span>
                       <span className={`font-bold ${dec.cumulativeGrowth && dec.cumulativeGrowth > 0 ? 'text-green-600' : dec.cumulativeGrowth && dec.cumulativeGrowth < 0 ? 'text-red-500' : 'text-gray-500'}`}>
-                        {dec.cumulativeGrowth !== null ? `${dec.cumulativeGrowth > 0 ? '+' : ''}$${dec.cumulativeGrowth.toLocaleString()}` : 'N/A'}
+                        {dec.cumulativeGrowth !== null ? `${dec.cumulativeGrowth > 0 ? '+' : ''}₦${dec.cumulativeGrowth.toLocaleString()}` : 'N/A'}
                       </span>
                     </div>
                     <div className="text-left sm:text-right mt-1">

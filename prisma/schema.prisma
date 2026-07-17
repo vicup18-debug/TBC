@@ -20,6 +20,7 @@ model User {
   pillarLogs            PillarLog[]
   breaches              Breach[]
   financialDeclarations FinancialDeclaration[]
+  walletTransactions    WalletTransaction[]
 }
 
 model CovenantGroup {
@@ -27,7 +28,7 @@ model CovenantGroup {
   name                 String
   effectiveDate        DateTime
   reviewDate           DateTime
-  commitmentFundAmount Float
+  commitmentFundAmount Int
   status               String       @default("ACTIVE") // ACTIVE, COMPLETED
   timezone             String       @default("Africa/Lagos")
   inviteCode           String       @unique @default(uuid())
@@ -36,6 +37,7 @@ model CovenantGroup {
 
   memberships          Membership[]
   breaches             Breach[]
+  walletTransactions   WalletTransaction[]
 }
 
 model Membership {
@@ -43,7 +45,7 @@ model Membership {
   userId       String
   groupId      String
   role         String        @default("MEMBER") // MEMBER, ACCOUNTABILITY_HOLDER
-  stakeBalance Float         // Starts at commitmentFundAmount
+  stakeBalance Int           @default(0)
   joinedAt     DateTime      @default(now())
 
   user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -72,7 +74,7 @@ model Breach {
   userId    String
   groupId   String
   type      String        // MINOR, MAJOR, DISHONESTY
-  amount    Float
+  amount    Int
   date      DateTime
   note      String?       // Visible only to Accountability Holder and breaching member
   createdAt DateTime      @default(now())
@@ -85,11 +87,25 @@ model FinancialDeclaration {
   id                    String   @id @default(uuid())
   userId                String
   date                  DateTime
-  netWorth              Float?
-  cumulativeGrowth      Float?
+  netWorth              Int?
+  cumulativeGrowth      Int?
   evidenceNote          String?
   onTrackForMillionaire Boolean  @default(false)
   createdAt             DateTime @default(now())
 
   user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model WalletTransaction {
+  id        String   @id @default(uuid())
+  userId    String
+  groupId   String
+  amount    Int
+  type      String   // DEPOSIT, WITHDRAWAL, PENALTY
+  status    String   // SUCCESS
+  reference String?
+  createdAt DateTime @default(now())
+
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  group     CovenantGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
 }

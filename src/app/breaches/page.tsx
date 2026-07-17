@@ -74,7 +74,7 @@ export default async function BreachesPage() {
                         </p>
                       </div>
                       <div className="bg-red-50 text-red-600 font-black px-3 py-1 rounded-full border border-red-100 whitespace-nowrap">
-                        - ${breach.amount.toLocaleString()}
+                        - ₦{breach.amount.toLocaleString()}
                       </div>
                     </div>
                     <p className="text-gray-700 leading-relaxed bg-white p-3 rounded-xl border border-gray-100">

@@ -47,7 +47,7 @@ export async function POST(req: Request) {
           create: {
             userId: session.user.id,
             role: 'ACCOUNTABILITY_HOLDER', // Creator is initially the accountability holder
-            stakeBalance: parsed.commitmentFundAmount,
+            stakeBalance: 0,
           }
         }
       }

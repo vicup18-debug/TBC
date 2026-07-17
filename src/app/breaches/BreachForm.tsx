@@ -54,7 +54,7 @@ export default function BreachForm({ members }: { members: { id: string, name: s
           </select>
         </div>
         <div className="space-y-1.5">
-          <label className="text-sm font-semibold text-gray-700 pl-1">Amount Forfeited ($)</label>
+          <label className="text-sm font-semibold text-gray-700 pl-1">Amount Forfeited (₦)</label>
           <input name="amountForfeited" type="number" min="1" required placeholder="50" className="w-full px-4 py-3.5 rounded-2xl bg-gray-50/50 border border-gray-200 focus:border-red-400 focus:ring-1 focus:ring-red-400 outline-none text-sm text-gray-900" />
         </div>
       </div>

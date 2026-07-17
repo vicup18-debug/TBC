@@ -46,7 +46,7 @@ export async function POST(req: Request) {
         userId: session.user.id,
         groupId: group.id,
         role: 'MEMBER',
-        stakeBalance: group.commitmentFundAmount,
+        stakeBalance: 0,
       }
     })
 

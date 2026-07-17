@@ -42,7 +42,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Target user is not in the group' }, { status: 400 })
     }
 
-    // Transaction: Create breach log and decrement stake balance
+    // Transaction: Create breach log, decrement stake balance, and record penalty in wallet ledger
     await prisma.$transaction([
       prisma.breach.create({
         data: {
@@ -63,6 +63,15 @@ export async function POST(req: Request) {
         },
         data: {
           stakeBalance: { decrement: amountForfeited }
+        }
+      }),
+      prisma.walletTransaction.create({
+        data: {
+          userId,
+          groupId: adminMembership.groupId,
+          amount: amountForfeited,
+          type: 'PENALTY',
+          status: 'SUCCESS'
         }
       })
     ])

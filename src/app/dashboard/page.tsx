@@ -211,7 +211,7 @@ export default async function DashboardPage() {
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100">
                 <p className="text-xs text-gray-500 font-semibold mb-1 uppercase">Stake</p>
-                <p className="text-xl font-black text-gray-900">${membership.stakeBalance.toLocaleString()}</p>
+                <p className="text-xl font-black text-gray-900">₦{membership.stakeBalance.toLocaleString()}</p>
               </div>
               <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100">
                 <p className="text-xs text-gray-500 font-semibold mb-1 uppercase">Role</p>

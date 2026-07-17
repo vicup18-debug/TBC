@@ -166,7 +166,7 @@ export default function SetupPage() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-sm font-semibold text-gray-700 pl-1">Commitment Fund ($)</label>
+                <label className="text-sm font-semibold text-gray-700 pl-1">Commitment Fund (₦)</label>
                 <input
                   type="number"
                   {...createForm.register('commitmentFundAmount', { valueAsNumber: true })}
