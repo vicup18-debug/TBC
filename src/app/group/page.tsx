@@ -198,7 +198,7 @@ export default async function GroupDashboardPage() {
           <div className="flex flex-col items-end gap-3">
             <div className="bg-gray-900 text-white rounded-2xl p-5 flex flex-col items-center md:items-end justify-center shadow-lg border border-gray-800 w-full sm:w-auto">
               <span className="text-xs font-semibold uppercase tracking-wider text-brand">Total Commitment Fund</span>
-              <span className="text-3xl font-black">₦{totalFund.toLocaleString()}</span>
+              <span className="text-3xl font-black">${totalFund.toLocaleString()}</span>
             </div>
             <div className="flex gap-2 w-full sm:w-auto">
               <Link href={`/wallet?groupId=${groupData.id}`} className="flex-1 bg-gray-100 text-gray-900 hover:bg-gray-200 font-bold py-2.5 px-6 rounded-full transition-all flex items-center justify-center gap-2 shadow-sm text-sm">
@@ -218,7 +218,7 @@ export default async function GroupDashboardPage() {
               <h3 className="font-bold text-orange-900 flex items-center gap-2">
                 <ShieldAlert className="w-5 h-5" /> Low Stake Balance
               </h3>
-              <p className="text-orange-800 text-sm mt-1">Your wallet balance is below the required ₦{groupData.commitmentFundAmount.toLocaleString()} commitment. Please deposit funds immediately.</p>
+              <p className="text-orange-800 text-sm mt-1">Your wallet balance is below the required ${groupData.commitmentFundAmount.toLocaleString()} commitment. Please deposit funds immediately.</p>
             </div>
             <Link href={`/wallet?groupId=${groupData.id}`} className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2.5 px-6 rounded-full transition-all text-sm whitespace-nowrap shadow-md">
               Deposit Funds
@@ -300,7 +300,7 @@ export default async function GroupDashboardPage() {
                   <div className="flex flex-col items-end min-w-[80px]">
                     <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Stake Left</span>
                     <span className={`text-xl font-black ${member.stakeBalance < groupData.commitmentFundAmount ? 'text-red-500' : 'text-gray-900'}`}>
-                      ₦{member.stakeBalance.toLocaleString()}
+                      ${member.stakeBalance.toLocaleString()}
                     </span>
                   </div>
 
@@ -310,10 +310,10 @@ export default async function GroupDashboardPage() {
           </div>
         </div>
 
-        {/* Glory & Shame Feed */}
+        {/* Glory & Accountability Feed */}
         <div className="bg-white rounded-[2rem] p-6 sm:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
           <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-            <Flame className="w-6 h-6 text-orange-500" /> Glory & Shame Feed
+            <Flame className="w-6 h-6 text-orange-500" /> Glory & Accountability Feed
           </h2>
           
           {combinedFeed.length === 0 ? (
@@ -338,7 +338,7 @@ export default async function GroupDashboardPage() {
                   <div className="flex-1">
                     {item.feedType === 'BREACH' ? (
                       <p className="text-sm text-gray-900 font-medium">
-                        <strong className="font-bold text-red-600">{item.user.name}</strong> forfeited <span className="font-black text-gray-900">₦{item.amount.toLocaleString()}</span>.
+                        <strong className="font-bold text-red-600">{item.user.name}</strong> forfeited <span className="font-black text-gray-900">${item.amount.toLocaleString()}</span>.
                       </p>
                     ) : (
                       <p className="text-sm text-gray-900 font-medium">

@@ -13,6 +13,7 @@ export default function DeclarationForm({ todayDateString }: { todayDateString: 
 
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const form = e.currentTarget
     setIsSubmitting(true)
     setError(null)
     setSuccess(false)
@@ -33,7 +34,7 @@ export default function DeclarationForm({ todayDateString }: { todayDateString: 
         const d = await res.json()
         throw new Error(d.error || 'Failed to submit declaration')
       }
-      e.currentTarget.reset()
+      form.reset()
       setSuccess(true)
       router.refresh()
     } catch (err: any) {
@@ -55,11 +56,11 @@ export default function DeclarationForm({ todayDateString }: { todayDateString: 
           <input name="date" type="date" defaultValue={todayDateString} required className="w-full px-4 py-3.5 rounded-2xl bg-gray-50/50 border border-gray-200 focus:border-gray-400 focus:ring-1 focus:ring-gray-400 outline-none text-sm text-gray-900" />
         </div>
         <div className="space-y-1.5">
-          <label className="text-sm font-semibold text-gray-700 pl-1">Total Net Worth (₦)</label>
+          <label className="text-sm font-semibold text-gray-700 pl-1">Total Net Worth ($)</label>
           <input name="netWorth" type="number" step="0.01" className="w-full px-4 py-3.5 rounded-2xl bg-gray-50/50 border border-gray-200 focus:border-gray-400 focus:ring-1 focus:ring-gray-400 outline-none text-sm text-gray-900" placeholder="e.g. 50000" />
         </div>
         <div className="space-y-1.5">
-          <label className="text-sm font-semibold text-gray-700 pl-1">Monthly Growth (₦)</label>
+          <label className="text-sm font-semibold text-gray-700 pl-1">Monthly Growth ($)</label>
           <input name="cumulativeGrowth" type="number" step="0.01" className="w-full px-4 py-3.5 rounded-2xl bg-gray-50/50 border border-gray-200 focus:border-gray-400 focus:ring-1 focus:ring-gray-400 outline-none text-sm text-gray-900" placeholder="e.g. +2500 or -500" />
         </div>
       </div>
